@@ -52,7 +52,7 @@ func CheckLive(hostslist []string, Ping bool) []string {
 			common.LogError(err)
 			//尝试无监听icmp探测
 			fmt.Println("trying RunIcmp2")
-			conn, err := net.DialTimeout("ip4:icmp", "127.0.0.1", 3*time.Second)
+			conn, err := net.DialTimeout("ip4:icmp", "127.0.0.1", 5*time.Second)
 			defer func() {
 				if conn != nil {
 					conn.Close()
