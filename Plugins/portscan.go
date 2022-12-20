@@ -81,7 +81,7 @@ func PortConnect(addr Addr, respondingHosts chan<- string, adjustedTimeout int64
 	}()
 	if err == nil {
 		address := host + ":" + strconv.Itoa(port)
-		result := fmt.Sprintf("%s open", address)
+		result := fmt.Sprintf("[+] %s open", address)
 		common.LogSuccess(result)
 		wg.Add(1)
 		respondingHosts <- address
