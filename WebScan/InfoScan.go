@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/shadow1ng/fscan/WebScan/info"
 	"github.com/shadow1ng/fscan/common"
-	"github.com/shadow1ng/fscan/utils"
 	"regexp"
 )
 
@@ -39,7 +38,7 @@ func InfoCheck(Url string, CheckData *[]CheckDatas) []string {
 	infoname = removeDuplicateElement(infoname)
 
 	if len(infoname) > 0 {
-		result := utils.Printsuc(" InfoScan:%-25v %s ", Url, infoname)
+		result := fmt.Sprintf(" InfoScan:%-25v %s ", Url, infoname)
 		common.LogSuccess(result)
 		return infoname
 	}

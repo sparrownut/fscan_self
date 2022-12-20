@@ -6,7 +6,14 @@ import (
 	"strings"
 )
 
+var using = false
+
 func Printsuc(text string, args ...any) string {
+while:
+	if using {
+		goto while
+	}
+	using = true
 	c := color.New(color.FgHiGreen, color.Bold)
 	if !strings.Contains(text, "-") && !strings.Contains(text, ">") && !strings.Contains(text, "!") && !strings.Contains(text, "+") {
 		_, err := c.Print("[+]")
@@ -14,10 +21,15 @@ func Printsuc(text string, args ...any) string {
 		}
 	}
 	fmt.Printf(text+"\n", args...)
+	using = false
 	return "[+]" + fmt.Sprintf(text+"\n", args...)
-
 }
 func Printerr(text string, args ...any) string {
+while:
+	if using {
+		goto while
+	}
+	using = true
 	c := color.New(color.FgHiRed)
 	if !strings.Contains(text, "-") && !strings.Contains(text, ">") && !strings.Contains(text, "!") && !strings.Contains(text, "+") {
 		_, err := c.Print("[-]")
@@ -25,19 +37,31 @@ func Printerr(text string, args ...any) string {
 		}
 	}
 	fmt.Printf(text+"\n", args...)
+	using = false
 	return "[-]" + fmt.Sprintf(text+"\n", args...)
 }
 func Printminfo(text string, args ...any) string {
+while:
+	if using {
+		goto while
+	}
+	using = true
 	c := color.New(color.FgYellow)
 	if !strings.Contains(text, "-") && !strings.Contains(text, ">") && !strings.Contains(text, "!") && !strings.Contains(text, "+") {
-		_, err := c.Print("[>]")
+		_, err := c.Printf("[>]")
 		if err != nil {
 		}
 	}
 	fmt.Printf(text+"\n", args...)
+	using = false
 	return "[>]" + fmt.Sprintf(text+"\n", args...)
 }
 func Printhinfo(text string, args ...any) string {
+while:
+	if using {
+		goto while
+	}
+	using = true
 	c := color.New(color.FgHiYellow, color.Bold)
 
 	if !strings.Contains(text, "-") && !strings.Contains(text, ">") && !strings.Contains(text, "!") && !strings.Contains(text, "+") {
@@ -46,9 +70,15 @@ func Printhinfo(text string, args ...any) string {
 		}
 	}
 	fmt.Printf(text+"\n", args...)
+	using = false
 	return "[!]" + fmt.Sprintf(text+"\n", args...)
 }
 func Printcritical(text string, args ...any) {
+while:
+	if using {
+		goto while
+	}
+	using = true
 	c := color.New(color.FgHiBlue, color.BgHiRed, color.Bold)
 	if !strings.Contains(text, "-") && !strings.Contains(text, ">") && !strings.Contains(text, "!") && !strings.Contains(text, "+") {
 		_, err := c.Print("[■]")
@@ -64,4 +94,5 @@ func Printcritical(text string, args ...any) {
 		return
 	}
 	fmt.Print()
+	using = false
 }
