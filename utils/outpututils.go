@@ -39,6 +39,7 @@ func Printminfo(text string, args ...any) string {
 }
 func Printhinfo(text string, args ...any) string {
 	c := color.New(color.FgHiYellow, color.Bold)
+
 	if !strings.Contains(text, "-") && !strings.Contains(text, ">") && !strings.Contains(text, "!") && !strings.Contains(text, "+") {
 		_, err := c.Print("[!]")
 		if err != nil {

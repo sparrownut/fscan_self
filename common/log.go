@@ -32,7 +32,8 @@ func LogSuccess(result string) {
 
 func SaveLog() {
 	for result := range Results {
-		if !strings.Contains(*result, "[+]") && !strings.Contains(*result, "[>]") {
+		if !strings.Contains(*result, "+") && !strings.Contains(*result, ">") && !strings.Contains(*result, "!") {
+			//fmt.Printf(*result)
 			utils.Printminfo(*result)
 		}
 		if IsSave {

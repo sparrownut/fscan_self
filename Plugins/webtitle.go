@@ -158,7 +158,7 @@ func geturl(info *common.HostInfo, flag int, CheckData []WebScan.CheckDatas) (er
 			result += fmt.Sprintf(" 跳转url: %s", reurl)
 		}
 		common.LogSuccess(result)
-		utils.Printhinfo(result)
+		//utils.Printhinfo(result)
 	}
 	if reurl != "" {
 		return nil, reurl, CheckData
