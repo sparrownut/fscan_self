@@ -7,6 +7,7 @@ import (
 	"github.com/shadow1ng/fscan/WebScan"
 	"github.com/shadow1ng/fscan/WebScan/lib"
 	"github.com/shadow1ng/fscan/common"
+	"github.com/shadow1ng/fscan/utils"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"io"
 	"io/ioutil"
@@ -29,7 +30,7 @@ func WebTitle(info *common.HostInfo) error {
 	if common.IsWebCan == false && err == nil {
 		WebScan.WebScan(info)
 	} else {
-		errlog := fmt.Sprintf("[-] webtitle %v %v", info.Url, err)
+		errlog := utils.Printerr(" webtitle %v %v", info.Url, err)
 		common.LogError(errlog)
 	}
 	return err
@@ -152,7 +153,7 @@ func geturl(info *common.HostInfo, flag int, CheckData []WebScan.CheckDatas) (er
 		if err1 == nil {
 			reurl = redirURL.String()
 		}
-		result := fmt.Sprintf("[*] WebTitle: %-25v code:%-3v len:%-6v title:%v", resp.Request.URL, resp.StatusCode, length, title)
+		result := fmt.Sprintf(" WebTitle: %-25v code:%-3v len:%-6v title:%v", resp.Request.URL, resp.StatusCode, length, title)
 		if reurl != "" {
 			result += fmt.Sprintf(" 跳转url: %s", reurl)
 		}

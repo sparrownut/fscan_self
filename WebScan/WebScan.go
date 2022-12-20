@@ -2,9 +2,9 @@ package WebScan
 
 import (
 	"embed"
-	"fmt"
 	"github.com/shadow1ng/fscan/WebScan/lib"
 	"github.com/shadow1ng/fscan/common"
+	"github.com/shadow1ng/fscan/utils"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -36,7 +36,7 @@ func WebScan(info *common.HostInfo) {
 func Execute(PocInfo common.PocInfo) {
 	req, err := http.NewRequest("GET", PocInfo.Target, nil)
 	if err != nil {
-		errlog := fmt.Sprintf("[-] webpocinit %v %v", PocInfo.Target, err)
+		errlog := utils.Printerr(" webpocinit %v %v", PocInfo.Target, err)
 		common.LogError(errlog)
 		return
 	}
@@ -55,7 +55,7 @@ func initpoc() {
 	if common.PocPath == "" {
 		entries, err := Pocs.ReadDir("pocs")
 		if err != nil {
-			fmt.Printf("[-] init poc error: %v", err)
+			utils.Printerr("init poc error: %v", err)
 			return
 		}
 		for _, one := range entries {
@@ -83,7 +83,7 @@ func initpoc() {
 				return nil
 			})
 		if err != nil {
-			fmt.Printf("[-] init poc error: %v", err)
+			utils.Printerr(" init poc error: %v", err)
 		}
 	}
 }

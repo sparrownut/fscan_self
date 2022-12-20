@@ -6,6 +6,7 @@ import (
 	"github.com/google/cel-go/cel"
 	"github.com/shadow1ng/fscan/WebScan/info"
 	"github.com/shadow1ng/fscan/common"
+	"github.com/shadow1ng/fscan/utils"
 	"math/rand"
 	"net/http"
 	"net/url"
@@ -332,15 +333,15 @@ func clusterpoc(oReq *http.Request, p *Poc, variableMap map[string]interface{}, 
 			if success {
 				if rule.Continue {
 					if p.Name == "poc-yaml-backup-file" || p.Name == "poc-yaml-sql-file" {
-						common.LogSuccess(fmt.Sprintf("[+] %s://%s%s %s", req.Url.Scheme, req.Url.Host, req.Url.Path, p.Name))
+						common.LogSuccess(utils.Printsuc(" %s://%s%s %s", req.Url.Scheme, req.Url.Host, req.Url.Path, p.Name))
 					} else {
-						common.LogSuccess(fmt.Sprintf("[+] %s://%s%s %s %v", req.Url.Scheme, req.Url.Host, req.Url.Path, p.Name, tmpMap))
+						common.LogSuccess(utils.Printsuc(" %s://%s%s %s %v", req.Url.Scheme, req.Url.Host, req.Url.Path, p.Name, tmpMap))
 					}
 					continue
 				}
 				strMap = append(strMap, tmpMap...)
 				if i == len(p.Rules)-1 {
-					common.LogSuccess(fmt.Sprintf("[+] %s://%s%s %s %v", req.Url.Scheme, req.Url.Host, req.Url.Path, p.Name, strMap))
+					common.LogSuccess(utils.Printsuc(" %s://%s%s %s %v", req.Url.Scheme, req.Url.Host, req.Url.Path, p.Name, strMap))
 					//防止后续继续打印poc成功信息
 					return false, nil
 				}

@@ -1,7 +1,7 @@
 package common
 
 import (
-	"fmt"
+	"github.com/shadow1ng/fscan/utils"
 	"os"
 	"strings"
 	"sync"
@@ -24,6 +24,7 @@ func init() {
 }
 
 func LogSuccess(result string) {
+	//utils.Printsuc(result)
 	LogWG.Add(1)
 	LogSucTime = time.Now().Unix()
 	Results <- &result
@@ -32,7 +33,7 @@ func LogSuccess(result string) {
 func SaveLog() {
 	for result := range Results {
 		if Silent == false || strings.Contains(*result, "[+]") || strings.Contains(*result, "[*]") {
-			fmt.Println(*result)
+			utils.Printsuc(*result)
 		}
 		if IsSave {
 			WriteFile(*result, Outputfile)
@@ -45,21 +46,25 @@ func WriteFile(result string, filename string) {
 	var text = []byte(result + "\n")
 	fl, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
-		fmt.Printf("Open %s error, %v\n", filename, err)
+		//fmt.Printf()
+		utils.Printerr("Open %s error, %v\n", filename, err)
 		return
 	}
 	_, err = fl.Write(text)
 	fl.Close()
 	if err != nil {
-		fmt.Printf("Write %s error, %v\n", filename, err)
+		//fmt.Printf()
+		utils.Printerr("Write %s error, %v\n", filename, err)
 	}
 }
 
 func LogError(errinfo interface{}) {
 	if WaitTime == 0 {
-		fmt.Printf("已完成 %v/%v %v \n", End, Num, errinfo)
+		//fmt.Printf()
+		utils.Printerr("已完成 %v/%v %v \n", End, Num, errinfo)
 	} else if (time.Now().Unix()-LogSucTime) > WaitTime && (time.Now().Unix()-LogErrTime) > WaitTime {
-		fmt.Printf("已完成 %v/%v %v \n", End, Num, errinfo)
+		//fmt.Printf()
+		utils.Printerr("已完成 %v/%v %v \n", End, Num, errinfo)
 		LogErrTime = time.Now().Unix()
 	}
 }
