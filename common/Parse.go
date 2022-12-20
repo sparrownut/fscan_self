@@ -71,6 +71,7 @@ func ParsePass(Info *HostInfo) {
 		PwdList = append(PwdList, KeyWord+"password")
 		PwdList = append(PwdList, KeyWord+"Password")
 		PwdList = append(PwdList, KeyWord+KeyWord)
+		Passwords = append(Passwords, PwdList...)
 	}
 	if Password != "" {
 		passs := strings.Split(Password, ",")
