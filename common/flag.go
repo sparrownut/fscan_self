@@ -44,6 +44,7 @@ func Flag(Info *HostInfo) {
 	flag.StringVar(&NoPorts, "pn", "", "the ports no scan,as: -pn 445")
 	flag.StringVar(&Command, "c", "", "exec command (ssh|wmiexec)")
 	flag.StringVar(&SshKey, "sshkey", "", "sshkey file (id_rsa)")
+	flag.StringVar(&KeyWord, "kw", "", "keyword to generate password")
 	flag.StringVar(&Domain, "domain", "", "smb domain")
 	flag.StringVar(&Username, "user", "", "username")
 	flag.StringVar(&Password, "pwd", "", "password")

@@ -20,10 +20,21 @@ func Parse(Info *HostInfo) {
 }
 
 func ParseUser() {
-	if Username == "" && Userfile == "" {
+
+	if Username == "" && Userfile == "" && KeyWord == "" {
 		return
 	}
+
 	var Usernames []string
+	if KeyWord != "" { // 如果有基于关键词生成的用户名
+		utils.Printhinfo("使用关键词%v生成词汇并合并入用户名字典", KeyWord)
+		Usernames = append(Usernames, KeyWord)
+		Usernames = append(Usernames, KeyWord+"root")
+		Usernames = append(Usernames, KeyWord+"admin")
+		Usernames = append(Usernames, KeyWord+"administrator")
+		Usernames = append(Usernames, KeyWord+"123")
+		Usernames = append(Usernames, KeyWord+"00000")
+	}
 	if Username != "" {
 		Usernames = strings.Split(Username, ",")
 	}
@@ -47,6 +58,20 @@ func ParseUser() {
 
 func ParsePass(Info *HostInfo) {
 	var PwdList []string
+	if KeyWord != "" { //基于关键词生成密码
+		utils.Printhinfo("使用关键词%v生成词汇并合并入密码字典", KeyWord)
+		PwdList = append(PwdList, KeyWord)
+		PwdList = append(PwdList, KeyWord+"123")
+		PwdList = append(PwdList, KeyWord+"1234")
+		PwdList = append(PwdList, KeyWord+"12345")
+		PwdList = append(PwdList, KeyWord+"123456")
+		PwdList = append(PwdList, KeyWord+"00000")
+		PwdList = append(PwdList, KeyWord+"Pass")
+		PwdList = append(PwdList, KeyWord+"pass")
+		PwdList = append(PwdList, KeyWord+"password")
+		PwdList = append(PwdList, KeyWord+"Password")
+		PwdList = append(PwdList, KeyWord+KeyWord)
+	}
 	if Password != "" {
 		passs := strings.Split(Password, ",")
 		for _, pass := range passs {

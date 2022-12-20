@@ -330,6 +330,7 @@ var (
 	Path        string
 	Scantype    string
 	Command     string
+	KeyWord     string
 	SshKey      string
 	Domain      string
 	Username    string
