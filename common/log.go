@@ -43,6 +43,7 @@ while:
 			utils.Printminfo(strings.ReplaceAll(*result, "[*]", ""))
 		} else if strings.Contains(*result, "[+]") {
 			utils.Printsuc(strings.ReplaceAll(*result, "[+]", ""))
+			WriteFile(*result, SucOutputfile)
 		} else if strings.Contains(*result, "[-]") {
 			utils.Printerr(strings.ReplaceAll(*result, "[-]", ""))
 		}
