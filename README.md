@@ -1,0 +1,3 @@
+# fscan_self
+自用更改fscan
+在fscan的基础上扩展了密码和输出格式以及poc数量
