@@ -1,6 +1,7 @@
 package common
 
 import (
+	"fmt"
 	"github.com/shadow1ng/fscan/utils"
 	"os"
 	"strings"
@@ -46,6 +47,10 @@ while:
 			WriteFile(*result, SucOutputfile)
 		} else if strings.Contains(*result, "[-]") {
 			utils.Printerr(strings.ReplaceAll(*result, "[-]", ""))
+		} else if strings.Contains(*result, "[!]") {
+			utils.Printhinfo(strings.ReplaceAll(*result, "[!]", ""))
+		} else {
+			fmt.Printf(*result)
 		}
 		if IsSave {
 			WriteFile(*result, Outputfile)
