@@ -28,7 +28,7 @@ func Banner() {
  / /_\/____/ __|/ __| '__/ _` + "`" + ` |/ __| |/ /
 / /_\\_____\__ \ (__| | | (_| | (__|   <    
 \____/     |___/\___|_|  \__,_|\___|_|\_\   
-                     fscan version: ` + version + `
+                     fscan version: ` + version + ` - pro
 `
 	print(banner)
 }

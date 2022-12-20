@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/shadow1ng/fscan/WebScan/lib"
 	"github.com/shadow1ng/fscan/common"
+	"github.com/shadow1ng/fscan/utils"
 	"reflect"
 	"strconv"
 	"strings"
@@ -14,7 +15,7 @@ func Scan(info common.HostInfo) {
 	fmt.Println("start infoscan")
 	Hosts, err := common.ParseIP(info.Host, common.HostFile, common.NoHosts)
 	if err != nil {
-		fmt.Println("len(hosts)==0", err)
+		utils.Printerr("len(hosts)==0", err)
 		return
 	}
 	lib.Inithttp(common.Pocinfo)
@@ -25,7 +26,7 @@ func Scan(info common.HostInfo) {
 	if len(Hosts) > 0 || len(common.HostPort) > 0 {
 		if common.NoPing == false && len(Hosts) > 0 {
 			Hosts = CheckLive(Hosts, common.Ping)
-			fmt.Println("[*] Icmp alive hosts len is:", len(Hosts))
+			utils.Printhinfo("Icmp alive hosts len is:", len(Hosts))
 		}
 		if common.Scantype == "icmp" {
 			common.LogWG.Wait()
@@ -40,7 +41,7 @@ func Scan(info common.HostInfo) {
 			AlivePorts = NoPortScan(Hosts, info.Ports)
 		} else if len(Hosts) > 0 {
 			AlivePorts = PortScan(Hosts, info.Ports, common.Timeout)
-			fmt.Println("[*] alive ports len is:", len(AlivePorts))
+			utils.Printhinfo("alive ports len is:", len(AlivePorts))
 			if common.Scantype == "portscan" {
 				common.LogWG.Wait()
 				return
@@ -50,14 +51,14 @@ func Scan(info common.HostInfo) {
 			AlivePorts = append(AlivePorts, common.HostPort...)
 			AlivePorts = common.RemoveDuplicate(AlivePorts)
 			common.HostPort = nil
-			fmt.Println("[*] AlivePorts len is:", len(AlivePorts))
+			utils.Printhinfo("AlivePorts len is:", len(AlivePorts))
 		}
 		common.GC()
 		var severports []string //severports := []string{"21","22","135"."445","1433","3306","5432","6379","9200","11211","27017"...}
 		for _, port := range common.PORTList {
 			severports = append(severports, strconv.Itoa(port))
 		}
-		fmt.Println("start vulscan")
+		utils.Printminfo("start vulscan")
 		for _, targetIP := range AlivePorts {
 			info.Host, info.Ports = strings.Split(targetIP, ":")[0], strings.Split(targetIP, ":")[1]
 			if common.Scantype == "all" || common.Scantype == "main" {
@@ -94,7 +95,7 @@ func Scan(info common.HostInfo) {
 	wg.Wait()
 	common.LogWG.Wait()
 	close(common.Results)
-	fmt.Println(fmt.Sprintf("已完成 %v/%v", common.End, common.Num))
+	utils.Printminfo("已完成 %v/%v", common.End, common.Num)
 }
 
 var Mutex = &sync.Mutex{}

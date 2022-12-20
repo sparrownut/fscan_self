@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"flag"
 	"fmt"
+	"github.com/shadow1ng/fscan/utils"
 	"net/url"
 	"os"
 	"strconv"
@@ -127,7 +128,7 @@ func Readfile(filename string) ([]string, error) {
 
 func ParseInput(Info *HostInfo) {
 	if Info.Host == "" && HostFile == "" && URL == "" && UrlFile == "" {
-		fmt.Println("Host is none")
+		utils.Printcritical("Host is none")
 		flag.Usage()
 		os.Exit(0)
 	}
@@ -173,10 +174,10 @@ func ParseInput(Info *HostInfo) {
 		}
 	}
 	if Socks5Proxy != "" {
-		fmt.Println("Socks5Proxy:", Socks5Proxy)
+		utils.Printminfo("Socks5Proxy:", Socks5Proxy)
 		_, err := url.Parse(Socks5Proxy)
 		if err != nil {
-			fmt.Println("Socks5Proxy parse error:", err)
+			utils.Printcritical("Socks5Proxy parse error:", err)
 			os.Exit(0)
 		}
 		NoPing = true
@@ -189,26 +190,26 @@ func ParseInput(Info *HostInfo) {
 		} else if !strings.Contains(Proxy, "://") {
 			Proxy = "http://127.0.0.1:" + Proxy
 		}
-		fmt.Println("Proxy:", Proxy)
+		utils.Printminfo("Proxy:", Proxy)
 		if !strings.HasPrefix(Proxy, "socks") && !strings.HasPrefix(Proxy, "http") {
-			fmt.Println("no support this proxy")
+			utils.Printcritical("Proxy:", Proxy)
 			os.Exit(0)
 		}
 		_, err := url.Parse(Proxy)
 		if err != nil {
-			fmt.Println("Proxy parse error:", err)
+			utils.Printcritical("Proxy parse error:", err)
 			os.Exit(0)
 		}
 	}
 
 	if Hash != "" && len(Hash) != 32 {
-		fmt.Println("[-] Hash is error,len(hash) must be 32")
+		utils.Printcritical("Hash is error,len(hash) must be 32")
 		os.Exit(0)
 	} else {
 		var err error
 		HashBytes, err = hex.DecodeString(Hash)
 		if err != nil {
-			fmt.Println("[-] Hash is error,hex decode error")
+			utils.Printcritical("Hash is error,hex decode error")
 			os.Exit(0)
 		}
 	}
@@ -247,13 +248,13 @@ func ParseScantype(Info *HostInfo) {
 			port, _ := PORTList[Scantype]
 			Info.Ports = strconv.Itoa(port)
 		}
-		fmt.Println("-m ", Scantype, " start scan the port:", Info.Ports)
+		utils.Printminfo("-m ", Scantype, " start scan the port:", Info.Ports)
 	}
 }
 
 func CheckErr(text string, err error, flag bool) {
 	if err != nil {
-		fmt.Println("Parse", text, "error: ", err.Error())
+		utils.Printerr("Parse", text, "error: ", err.Error())
 		if flag {
 			if err != ParseIPErr {
 				fmt.Println(ParseIPErr)
@@ -264,10 +265,10 @@ func CheckErr(text string, err error, flag bool) {
 }
 
 func showmode() {
-	fmt.Println("The specified scan type does not exist")
-	fmt.Println("-m")
+	utils.Printerr("The specified scan type does not exist")
+	utils.Printhinfo("-m")
 	for name := range PORTList {
-		fmt.Println("   [" + name + "]")
+		utils.Printminfo("   [" + name + "]")
 	}
 	os.Exit(0)
 }
