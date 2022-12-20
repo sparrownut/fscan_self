@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/shadow1ng/fscan/common"
+	"github.com/shadow1ng/fscan/utils"
 	"golang.org/x/net/icmp"
 	"net"
 	"os/exec"
@@ -28,9 +29,9 @@ func CheckLive(hostslist []string, Ping bool) []string {
 				ExistHosts[ip] = struct{}{}
 				if common.Silent == false {
 					if Ping == false {
-						fmt.Printf("(icmp) Target %-15s is alive\n", ip)
+						utils.Printhinfo("(icmp) Target %-15s is alive\n", ip)
 					} else {
-						fmt.Printf("(ping) Target %-15s is alive\n", ip)
+						utils.Printhinfo("(ping) Target %-15s is alive\n", ip)
 					}
 				}
 				AliveHosts = append(AliveHosts, ip)
@@ -62,8 +63,8 @@ func CheckLive(hostslist []string, Ping bool) []string {
 			} else {
 				common.LogError(err)
 				//使用ping探测
-				fmt.Println("The current user permissions unable to send icmp packets")
-				fmt.Println("start ping")
+				utils.Printerr("The current user permissions unable to send icmp packets")
+				utils.Printminfo("start ping")
 				RunPing(hostslist, chanHosts)
 			}
 		}

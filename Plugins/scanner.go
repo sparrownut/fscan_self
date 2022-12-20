@@ -26,7 +26,7 @@ func Scan(info common.HostInfo) {
 	if len(Hosts) > 0 || len(common.HostPort) > 0 {
 		if common.NoPing == false && len(Hosts) > 0 {
 			Hosts = CheckLive(Hosts, common.Ping)
-			utils.Printhinfo("Icmp alive hosts len is:", len(Hosts))
+			utils.Printhinfo("Icmp alive hosts len is:%v", len(Hosts))
 		}
 		if common.Scantype == "icmp" {
 			common.LogWG.Wait()
@@ -41,7 +41,7 @@ func Scan(info common.HostInfo) {
 			AlivePorts = NoPortScan(Hosts, info.Ports)
 		} else if len(Hosts) > 0 {
 			AlivePorts = PortScan(Hosts, info.Ports, common.Timeout)
-			utils.Printhinfo("alive ports len is:", len(AlivePorts))
+			utils.Printhinfo("alive ports len is:%v", len(AlivePorts))
 			if common.Scantype == "portscan" {
 				common.LogWG.Wait()
 				return
@@ -51,7 +51,7 @@ func Scan(info common.HostInfo) {
 			AlivePorts = append(AlivePorts, common.HostPort...)
 			AlivePorts = common.RemoveDuplicate(AlivePorts)
 			common.HostPort = nil
-			utils.Printhinfo("AlivePorts len is:", len(AlivePorts))
+			utils.Printhinfo("AlivePorts len is:%v", len(AlivePorts))
 		}
 		common.GC()
 		var severports []string //severports := []string{"21","22","135"."445","1433","3306","5432","6379","9200","11211","27017"...}

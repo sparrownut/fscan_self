@@ -1,7 +1,6 @@
 package common
 
 import (
-	"fmt"
 	"github.com/shadow1ng/fscan/utils"
 	"os"
 	"strings"
@@ -40,11 +39,12 @@ while:
 	}
 	using = true
 	for result := range Results {
-		if !strings.Contains(*result, ">") && !strings.Contains(*result, "!") && !strings.Contains(*result, "-") && !strings.Contains(*result, "+") {
-			//fmt.Printf(*result)
-			utils.Printminfo(*result)
-		} else {
-			fmt.Printf(*result)
+		if strings.Contains(*result, "[*]") {
+			utils.Printminfo(strings.ReplaceAll(*result, "[*]", ""))
+		} else if strings.Contains(*result, "[+]") {
+			utils.Printsuc(strings.ReplaceAll(*result, "[+]", ""))
+		} else if strings.Contains(*result, "[-]") {
+			utils.Printerr(strings.ReplaceAll(*result, "[-]", ""))
 		}
 		if IsSave {
 			WriteFile(*result, Outputfile)
