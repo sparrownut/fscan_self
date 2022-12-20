@@ -52,7 +52,7 @@ func ParseUser() {
 
 	Usernames = RemoveDuplicate(Usernames)
 	for name := range Userdict {
-		Userdict[name] = Usernames
+		Userdict[name] = append(Userdict[name], Usernames...)
 	}
 }
 
