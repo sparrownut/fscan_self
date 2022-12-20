@@ -68,7 +68,7 @@ func Flag(Info *HostInfo) {
 	flag.BoolVar(&TmpSave, "no", false, "not to save output log")
 	flag.Int64Var(&WaitTime, "debug", 60, "every time to LogErr")
 	flag.BoolVar(&Silent, "silent", false, "silent scan")
-	flag.BoolVar(&PocFull, "full", false, "poc full scan,as: shiro 100 key")
+	flag.BoolVar(&PocFull, "full", true, "poc full scan,as: shiro 100 key")
 	flag.StringVar(&URL, "u", "", "url")
 	flag.StringVar(&UrlFile, "uf", "", "urlfile")
 	flag.StringVar(&Pocinfo.PocName, "pocname", "", "use the pocs these contain pocname, -pocname weblogic")
