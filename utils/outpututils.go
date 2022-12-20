@@ -64,7 +64,7 @@ while:
 	using = true
 	c := color.New(color.FgHiYellow, color.Bold)
 
-	if !strings.Contains(text, "-") && !strings.Contains(text, ">") && !strings.Contains(text, "!") && !strings.Contains(text, "+") {
+	if !strings.Contains(text, ">") && !strings.Contains(text, "!") && !strings.Contains(text, "+") {
 		_, err := c.Print("[!]")
 		if err != nil {
 		}

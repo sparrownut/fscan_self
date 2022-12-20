@@ -29,9 +29,9 @@ func CheckLive(hostslist []string, Ping bool) []string {
 				ExistHosts[ip] = struct{}{}
 				if common.Silent == false {
 					if Ping == false {
-						utils.Printhinfo("(icmp) Target %-15s is alive\n", ip)
+						utils.Printhinfo("(icmp) Target %-15s is alive", ip)
 					} else {
-						utils.Printhinfo("(ping) Target %-15s is alive\n", ip)
+						utils.Printhinfo("(ping) Target %-15s is alive", ip)
 					}
 				}
 				AliveHosts = append(AliveHosts, ip)
