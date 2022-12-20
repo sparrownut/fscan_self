@@ -52,7 +52,7 @@ func CheckLive(hostslist []string, Ping bool) []string {
 			common.LogError(err)
 			//尝试无监听icmp探测
 			fmt.Println("trying RunIcmp2")
-			conn, err := net.DialTimeout("ip4:icmp", "127.0.0.1", 10*time.Second)
+			conn, err := net.DialTimeout("ip4:icmp", "127.0.0.1", 6*time.Second)
 			defer func() {
 				if conn != nil {
 					conn.Close()
@@ -122,9 +122,9 @@ func RunIcmp1(hostslist []string, conn *icmp.PacketConn, chanHosts chan string) 
 		var wait time.Duration
 		switch {
 		case len(hostslist) <= 256:
-			wait = time.Second * 10
+			wait = time.Second * 5
 		default:
-			wait = time.Second * 32
+			wait = time.Second * 10
 		}
 		if since > wait {
 			break
@@ -159,7 +159,7 @@ func RunIcmp2(hostslist []string, chanHosts chan string) {
 
 func icmpalive(host string) bool {
 	startTime := time.Now()
-	conn, err := net.DialTimeout("ip4:icmp", host, 6*time.Second)
+	conn, err := net.DialTimeout("ip4:icmp", host, 5*time.Second)
 	defer func() {
 		if conn != nil {
 			conn.Close()
