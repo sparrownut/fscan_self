@@ -40,9 +40,9 @@ while:
 	}
 	using = true
 	for result := range Results {
-		if strings.Contains(*result, "[*]") {
+		if strings.Contains(*result, "[*]") || strings.Contains(*result, "WebTitle") {
 			utils.Printminfo(strings.ReplaceAll(*result, "[*]", ""))
-		} else if strings.Contains(*result, "[+]") || strings.Contains(*result, "WebTitle") {
+		} else if strings.Contains(*result, "[+]") {
 			utils.Printsuc(strings.ReplaceAll(*result, "[+]", ""))
 			WriteFile(*result, SucOutputfile)
 		} else if strings.Contains(*result, "[-]") {
